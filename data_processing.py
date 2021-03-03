@@ -1,16 +1,18 @@
 import re
+from tokenize import tokenize
+from io import BytesIO
 
 #########################
 # checking number of unique questions
 unique_questions = {}
 question = re.compile(r'^#[ ]?[0-9]*[.]?[ ]?(.*)')
-f = open("english_python_data_pruned.txt","r")
+f = open("english_python_data_pruned.txt", "r")
 
 question_regex = re
 for line in f:
     match_object = question.match(line)
     if match_object and match_object[1] not in unique_questions:
-        unique_questions[match_object[1]]="aka"
+        unique_questions[match_object[1]] = "aka"
 
 print(len(unique_questions))
 # for i in unique_questions:
@@ -19,12 +21,12 @@ f.close()
 
 ########################
 # checking unique questions answer pairs
-unique_questions_with_different_solution = {} # used to check for unique answers
-question_answer_pair = {} # used to save solutions for unique questions
-f = open("english_python_data_pruned.txt","r")
+unique_questions_with_different_solution = {}  # used to check for unique answers
+question_answer_pair = {}  # used to save solutions for unique questions
+f = open("english_python_data_pruned.txt", "r")
 
 solution = []
-for i,line in enumerate(f):
+for i, line in enumerate(f):
     match_object = question.match(line)
     if match_object:
         if len(solution) == 0:
@@ -39,7 +41,7 @@ for i,line in enumerate(f):
                 flag = 0
                 for j in unique_questions_with_different_solution[prev_match]:
                     if j != solution_combined:
-                        flag =1
+                        flag = 1
                 if flag:
                     unique_questions_with_different_solution[prev_match].append(solution_combined)
                     question_answer_pair[prev_match].append(solution)
@@ -48,12 +50,13 @@ for i,line in enumerate(f):
     else:
         solution.append(line)
 
-sum = 0
+sum_ = 0
 for i in unique_questions_with_different_solution:
-    sum += len(unique_questions_with_different_solution[i])
+    sum_ += len(unique_questions_with_different_solution[i])
 
-print(f' total unique questions and solutions pairs are {sum}')
+print(f' total unique questions and solutions pairs are {sum_}')
 f.close()
+
 
 ############################
 # Extracting question answers pairs using Regex
@@ -69,7 +72,7 @@ f.close()
 # Formatting solutions
 # 1. convert 4 space or 3 space indentation to \t
 # 2. removing trailing spaces
-# 3. remove lines with only \n
+# 3. remove lines with only \n or only spaces
 # 4. TODO: Removing spaces around operators like ==, &&
 
 def format_solution(solution):
@@ -81,48 +84,71 @@ def format_solution(solution):
     # remove empty lines first
     tmp_solution = []
     for sentence in solution:
-        if sentence == '\n' or sentence == "\n" or sentence =='\r':
+        if sentence == '\n' or re.match(r' +\n|\t+\n', sentence):
             continue
         else:
             # remove trailing spaces
             # check if trailing spaces
-            trailing_spaces = re.match(r'(^.*?)[ ]+\n',sentence)
+            trailing_spaces = re.match(r'(^.*?)[ ]+\n', sentence)
             if trailing_spaces:
-                sentence = re.sub(r'(^.*?)[ ]+\n',r'\1\n',sentence)
+                sentence = re.sub(r'(^.*?)[ ]+\n', r'\1\n', sentence)
             tmp_solution.append(sentence)
     solution = tmp_solution
 
-    i = 0
+    def find_indent_value(starting_spaces_, indent_scheme_):
+        sum_of_indents = 0
+        for i, j in enumerate(indent_scheme_):
+            sum_of_indents += j
+            if sum_of_indents == starting_spaces_:
+                break
+        if i == len(indent_scheme_):
+            raise Exception
+        total_indents_ = i
+        if total_indents_ < 0:
+            raise Exception
+
+        return total_indents_
+
     pruned_solution = []
-    # The reason for doing seperately for the first line is to tackle the cases where there is
-    # a starting space for all the lines of the code
-    previous_starting_spaces = len(re.match(r'^([ ]*).*?',solution[0])[1])
-    # remove starting spaces of first line
-    pruned_solution.append(re.sub(r'([ ]*)(.*?)\n',r'\2\n',solution[0]))
-    for sentence in solution[1:]:
-        present_starting_spaces = len(re.match(r'^([ ]*).*?',sentence)[1])
-        if present_starting_spaces < previous_starting_spaces:
-            if i >= 1:
-                i -= 1
-        if present_starting_spaces > previous_starting_spaces:
-            i += 1
-        indent = i * '\t'
-        pruned_solution.append(re.sub(r'([ ]*)(.*?)\n',indent+r'\2\n',sentence))
-        previous_starting_spaces = present_starting_spaces
+    indent_scheme = []
+    check_indentation_flag = True
+    for sentence in solution:
+        starting_spaces = len(re.match(r'^([ ]*).*?', sentence)[1])
+        if check_indentation_flag:
+            indent_scheme.append(starting_spaces - sum(indent_scheme))
+            check_indentation_flag = False
+        if re.match(r'.*:\n', sentence):
+            check_indentation_flag = True
+
+        total_indents = find_indent_value(starting_spaces, indent_scheme)
+        indent = total_indents * '\t'
+        pruned_solution.append(re.sub(r'([ ]*)(.*?)\n', indent + r'\2\n', sentence))
 
     return pruned_solution
 
 
+keyword_analysis = {}
 questions_list = []
 answers_list = []
 for i in question_answer_pair:
     for j in question_answer_pair[i]:
         questions_list.append(i)
-        answers_list.append(format_solution(j))
+        formatted_solution = format_solution(j)
+        answers_list.append(formatted_solution)
+        k = "".join(formatted_solution)
+        try:
+            a = list(tokenize(BytesIO(k.encode('utf-8')).readline))
+            for i__ in a[1:-1]:
+                if i__[1] not in keyword_analysis:
+                    keyword_analysis[i__[1]] = 1
+                else:
+                    keyword_analysis[i__[1]] += 1
+        except Exception:
+            print("Error in tokenization mostly caused by '' and 'newline' ")
 
-f = open("test.txt","w")
-for i in answers_list:
-    for j in i:
-        f.write(j)
-
-
+print('Total len of the keyword dictionary is ', len(keyword_analysis))
+# Note:
+# A lot of keywords are names of variable of strings or numbers
+# I might have to character wise input dictionary but that would make the problem more
+# difficult to solve for the network
+# Will try BPE?
