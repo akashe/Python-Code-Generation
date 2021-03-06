@@ -14,6 +14,10 @@ Ideas and approaches:
     * Criterion:
     
 2. Pretrained embeddings for encoder and decoder.
+   * Embedding for python code:
+      1. BPE
+      2. XLNET: autoencoding formulation?
+      3. 
 
 
 Reference paper:

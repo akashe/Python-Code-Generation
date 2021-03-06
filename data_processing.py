@@ -1,79 +1,8 @@
 import re
 from tokenize import tokenize
 from io import BytesIO
+import pickle
 
-#########################
-# checking number of unique questions
-unique_questions = {}
-question = re.compile(r'^#[ ]?[0-9]*[.]?[ ]?(.*)')
-f = open("english_python_data_pruned.txt", "r")
-
-question_regex = re
-for line in f:
-    match_object = question.match(line)
-    if match_object and match_object[1] not in unique_questions:
-        unique_questions[match_object[1]] = "aka"
-
-print(len(unique_questions))
-# for i in unique_questions:
-#     print(i)
-f.close()
-
-########################
-# checking unique questions answer pairs
-unique_questions_with_different_solution = {}  # used to check for unique answers
-question_answer_pair = {}  # used to save solutions for unique questions
-f = open("english_python_data_pruned.txt", "r")
-
-solution = []
-for i, line in enumerate(f):
-    match_object = question.match(line)
-    if match_object:
-        if len(solution) == 0:
-            prev_match = match_object[1]
-            continue
-        else:
-            solution_combined = " ".join(solution).replace('\n', "").replace('\t', "").replace(" ", "")
-            if prev_match not in unique_questions_with_different_solution:
-                unique_questions_with_different_solution[prev_match] = [solution_combined]
-                question_answer_pair[prev_match] = [solution]
-            else:
-                flag = 0
-                for j in unique_questions_with_different_solution[prev_match]:
-                    if j != solution_combined:
-                        flag = 1
-                if flag:
-                    unique_questions_with_different_solution[prev_match].append(solution_combined)
-                    question_answer_pair[prev_match].append(solution)
-        solution = []
-        prev_match = match_object[1]
-    else:
-        solution.append(line)
-
-sum_ = 0
-for i in unique_questions_with_different_solution:
-    sum_ += len(unique_questions_with_different_solution[i])
-
-print(f' total unique questions and solutions pairs are {sum_}')
-f.close()
-
-
-############################
-# Extracting question answers pairs using Regex
-
-# f = open("english_python_data_pruned.txt","r")
-# entire_file = f.read()
-# question_and_answer = r'^#[ ]?[0-9]*[.]?[ ]?(.*?)$([\S\s]*)-------------'
-# pairs = re.findall(question_and_answer,entire_file,re.MULTILINE)
-#
-
-
-###########################
-# Formatting solutions
-# 1. convert 4 space or 3 space indentation to \t
-# 2. removing trailing spaces
-# 3. remove lines with only \n or only spaces
-# 4. TODO: Removing spaces around operators like ==, &&
 
 def format_solution(solution):
     '''
@@ -127,28 +56,165 @@ def format_solution(solution):
     return pruned_solution
 
 
-keyword_analysis = {}
-questions_list = []
-answers_list = []
-for i in question_answer_pair:
-    for j in question_answer_pair[i]:
-        questions_list.append(i)
-        formatted_solution = format_solution(j)
-        answers_list.append(formatted_solution)
-        k = "".join(formatted_solution)
-        try:
-            a = list(tokenize(BytesIO(k.encode('utf-8')).readline))
-            for i__ in a[1:-1]:
-                if i__[1] not in keyword_analysis:
-                    keyword_analysis[i__[1]] = 1
-                else:
-                    keyword_analysis[i__[1]] += 1
-        except Exception:
-            print("Error in tokenization mostly caused by '' and 'newline' ")
+def getDataAnalysis():
+    #########################
+    # checking number of unique questions
+    unique_questions = {}
+    question = re.compile(r'^#[ ]?[0-9]*[.]?[ ]?(.*)')
+    f = open("data/english_python_data_pruned.txt", "r")
 
-print('Total len of the keyword dictionary is ', len(keyword_analysis))
-# Note:
-# A lot of keywords are names of variable of strings or numbers
-# I might have to character wise input dictionary but that would make the problem more
-# difficult to solve for the network
-# Will try BPE?
+    question_regex = re
+    for line in f:
+        match_object = question.match(line)
+        if match_object and match_object[1] not in unique_questions:
+            unique_questions[match_object[1]] = "aka"
+
+    print(len(unique_questions))
+    # for i in unique_questions:
+    #     print(i)
+    f.close()
+
+    ########################
+    # checking unique questions answer pairs
+    unique_questions_with_different_solution = {}  # used to check for unique answers
+    question_answer_pair = {}  # used to save solutions for unique questions
+    f = open("data/english_python_data_pruned.txt", "r")
+
+    solution = []
+    for i, line in enumerate(f):
+        match_object = question.match(line)
+        if match_object:
+            if len(solution) == 0:
+                prev_match = match_object[1]
+                continue
+            else:
+                solution_combined = " ".join(solution).replace('\n', "").replace('\t', "").replace(" ", "")
+                if prev_match not in unique_questions_with_different_solution:
+                    unique_questions_with_different_solution[prev_match] = [solution_combined]
+                    question_answer_pair[prev_match] = [solution]
+                else:
+                    flag = 0
+                    for j in unique_questions_with_different_solution[prev_match]:
+                        if j != solution_combined:
+                            flag = 1
+                    if flag:
+                        unique_questions_with_different_solution[prev_match].append(solution_combined)
+                        question_answer_pair[prev_match].append(solution)
+            solution = []
+            prev_match = match_object[1]
+        else:
+            solution.append(line)
+
+    sum_ = 0
+    for i in unique_questions_with_different_solution:
+        sum_ += len(unique_questions_with_different_solution[i])
+
+    print(f' total unique questions and solutions pairs are {sum_}')
+    f.close()
+
+    ############################
+    # Extracting question answers pairs using Regex
+
+    # f = open("english_python_data_pruned.txt","r")
+    # entire_file = f.read()
+    # question_and_answer = r'^#[ ]?[0-9]*[.]?[ ]?(.*?)$([\S\s]*)-------------'
+    # pairs = re.findall(question_and_answer,entire_file,re.MULTILINE)
+    #
+
+    ###########################
+    # Formatting solutions
+    # 1. convert 4 space or 3 space indentation to \t
+    # 2. removing trailing spaces
+    # 3. remove lines with only \n or only spaces
+    # 4. TODO: Removing spaces around operators like ==, &&
+
+    keyword_analysis = {}
+    questions_list = []
+    answers_list = []
+    for i in question_answer_pair:
+        for j in question_answer_pair[i]:
+            questions_list.append(i)
+            formatted_solution = format_solution(j)
+            answers_list.append(formatted_solution)
+            k = "".join(formatted_solution)
+            try:
+                a = list(tokenize(BytesIO(k.encode('utf-8')).readline))
+                for i__ in a[1:-1]:
+                    if i__[1] not in keyword_analysis:
+                        keyword_analysis[i__[1]] = 1
+                    else:
+                        keyword_analysis[i__[1]] += 1
+            except Exception:
+                print("Error in tokenization")
+
+    print('Total len of the keyword dictionary is ', len(keyword_analysis))
+    print(keyword_analysis)
+    # Note:
+    # A lot of keywords are names of variable of strings or numbers
+    # I might have to character wise input dictionary but that would make the problem more
+    # difficult to solve for the network
+    # Will try BPE?
+
+
+
+def getData():
+    '''
+    Function to return data
+    :return: two lists of questions and their formatted answers
+    '''
+    unique_questions_with_different_solution = {}  # used to check for unique answers
+    question_answer_pair = {}  # used to save solutions for unique questions
+    f = open("data/english_python_data_pruned.txt", "r")
+
+    solution = []
+    for i, line in enumerate(f):
+        match_object = question.match(line)
+        if match_object:
+            if len(solution) == 0:
+                prev_match = match_object[1]
+                continue
+            else:
+                solution_combined = " ".join(solution).replace('\n', "").replace('\t', "").replace(" ", "")
+                if prev_match not in unique_questions_with_different_solution:
+                    unique_questions_with_different_solution[prev_match] = [solution_combined]
+                    question_answer_pair[prev_match] = [solution]
+                else:
+                    flag = 0
+                    for j in unique_questions_with_different_solution[prev_match]:
+                        if j != solution_combined:
+                            flag = 1
+                    if flag:
+                        unique_questions_with_different_solution[prev_match].append(solution_combined)
+                        question_answer_pair[prev_match].append(solution)
+            solution = []
+            prev_match = match_object[1]
+        else:
+            solution.append(line)
+
+    questions_list = []
+    answers_list = []
+    for i in question_answer_pair:
+        for j in question_answer_pair[i]:
+            questions_list.append(i)
+            formatted_solution = format_solution(j)
+            answers_list.append("".join(formatted_solution))
+
+    return questions_list,answers_list
+
+
+def getTokenizer(python_code):
+    '''
+    Function that returns tokenized python code
+    :return: tokenized code
+    '''
+    tokens = []
+    try:
+        a = list(tokenize(BytesIO(python_code.encode('utf-8')).readline))
+        for i__ in a[1:-1]:
+            tokens.append(i__[1])
+    except Exception:
+        print("Error in tokenization")
+
+    return tokens
+
+getDataAnalysis()
