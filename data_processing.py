@@ -217,4 +217,4 @@ def getTokenizer(python_code):
 
     return tokens
 
-getDataAnalysis()
+# getDataAnalysis()
