@@ -162,6 +162,7 @@ def getData(path):
     Function to return data
     :return: two lists of questions and their formatted answers
     '''
+    question = re.compile(r'^#[ ]?[0-9]*[.]?[ ]?(.*)')
     unique_questions_with_different_solution = {}  # used to check for unique answers
     question_answer_pair = {}  # used to save solutions for unique questions
     f = open(path, "r")
