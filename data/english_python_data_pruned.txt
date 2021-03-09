@@ -3211,7 +3211,7 @@ dec = int(input("Enter a decimal number: "))
   
 print(bin(dec),"in binary.")  
 print(oct(dec),"in octal.")  
-print(hex(dec),"in hexadecimal."  
+print(hex(dec),"in hexadecimal.")
 
 #58 python program to find ascii value of a character
 
@@ -5566,7 +5566,7 @@ def show_ascii(a: str):
 #20 function to print calendar
 def show_mm_calendar(mm: int, yyyy: int):
     import calendar
-    print(calendar.month(yyyy, mm)
+    print(calendar.month(yyyy, mm))
 
 
 #21 Create a function that takes a list of numbers between 1 and 10 (excluding one number) and returns the missing number.
@@ -6573,7 +6573,7 @@ def fiboacci_number_check(n):
 # write a python program to strip all the vowels in a string
 string = "Remove Vowel"
 vowel = ['a', 'e', 'i', 'o', 'u']
-"".join([i for i in string if i not in vowel]
+"".join([i for i in string if i not in vowel])
 
 # write a python program to give the next fibonacci number
 
@@ -8709,7 +8709,7 @@ def to_string(n,base):
    if n < base:
       return conver_tString[n]
    else:
-      return to_string(n//base,base) + conver_tString[n % base
+      return to_string(n//base,base) + conver_tString[n % base]
 
 #77 Write a Python function to calculate the geometric sum of n-1.
 def geometric_sum(n):
@@ -8763,7 +8763,7 @@ if (a!=0.0):
         print("The root1 is: ", rp, "+ i",ip)
         print("The root2 is: ", rp, "- i",ip)
 else:
-    print("Not a quadratic equation."
+    print("Not a quadratic equation.")
 
 #81 Write a Python program to convert a given Bytearray to Hexadecimal string.
 def bytearray_to_hexadecimal(list_val):
