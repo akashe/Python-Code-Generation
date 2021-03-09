@@ -198,7 +198,7 @@ def getData(path):
         for j in question_answer_pair[i]:
             questions_list.append(i)
             formatted_solution = format_solution(j)
-            answers_list.append(" ".join(formatted_solution))
+            answers_list.append("".join(formatted_solution))
 
     return questions_list,answers_list
 
