@@ -33828,7 +33828,7 @@ def to_string(n,base):
    if n < base:
       return conver_tString[n]
    else:
-      return to_string(n//base,base) + conver_tString[n % base
+      return to_string(n//base,base) + conver_tString[n % base]
 
 #77 Write a Python function to calculate the geometric sum of n-1.
 def geometric_sum(n):
@@ -33882,7 +33882,7 @@ if (a!=0.0):
         print("The root1 is: ", rp, "+ i",ip)
         print("The root2 is: ", rp, "- i",ip)
 else:
-    print("Not a quadratic equation."
+    print("Not a quadratic equation.")
 
 #81 Write a Python program to convert a given Bytearray to Hexadecimal string.
 def bytearray_to_hexadecimal(list_val):
