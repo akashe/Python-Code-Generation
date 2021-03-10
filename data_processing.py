@@ -212,7 +212,11 @@ def getTokenizer(python_code):
     try:
         a = list(tokenize(BytesIO(python_code.encode('utf-8')).readline))
         for i__ in a[1:-1]:
-            tokens.append(i__[1])
+            if i__.exact_type == 3:
+                string_tokens = [k__ for k__ in i__[1]]
+                tokens = tokens + string_tokens
+            else:
+                tokens.append(i__[1])
     except Exception:
         print("Error in tokenization")
 
