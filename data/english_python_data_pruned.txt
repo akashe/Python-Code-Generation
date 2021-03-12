@@ -17941,14 +17941,10 @@ def softmax(x):
   
 # 52. python function for finding the hyperbolic tangent value of a number 
 def tanh(x):
-
-
   return math.tanh(x)
 
 # 53. python function for finding the derivative of hyperbolic tangent value of a number 
 def dtanh(x):
-
-
   return 1 - (math.tanh(x)**2)
 
 # write a python function to check if a given string is a palindrome
