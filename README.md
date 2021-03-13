@@ -54,7 +54,7 @@ Here are the different experiments we did, and their corresponding files.
     We use this file to report our results. We train on total 5937 unique question answer pairs along with the pretrained embeddings we got from 4.
    
 #### Example Outputs:
-Check the file here for example outputs.
+Check the [file here for example outputs](https://github.com/akashe/Python-Code-Generation/blob/main/data/example_output.txt) for better formatting.
 
 #### Attention graphs between text and python code 
 
