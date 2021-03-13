@@ -30,8 +30,6 @@ def format_solution(solution):
             sum_of_indents += j
             if sum_of_indents == starting_spaces_:
                 break
-        if i == len(indent_scheme_):
-            raise Exception
         total_indents_ = i
         if total_indents_ < 0:
             raise Exception
@@ -41,11 +39,11 @@ def format_solution(solution):
     pruned_solution = []
     indent_scheme = []
     check_indentation_flag = True
-    for sentence in solution:
+    for sentence_number,sentence in enumerate(solution):
         starting_spaces = len(re.match(r'^([ ]*).*?', sentence)[1])
         if check_indentation_flag:
             possible_indent = starting_spaces - sum(indent_scheme)
-            if possible_indent > 0:
+            if possible_indent > 0 or sentence_number == 0: # checking sentence number to get the first indentation which cud be 0
                 indent_scheme.append(possible_indent)
             check_indentation_flag = False
         if re.match(r'.*:\n', sentence):
@@ -227,3 +225,4 @@ def getTokenizer(python_code):
     return tokens
 
 # getDataAnalysis()
+getData("data/english_python_data_pruned.txt")
