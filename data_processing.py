@@ -44,7 +44,9 @@ def format_solution(solution):
     for sentence in solution:
         starting_spaces = len(re.match(r'^([ ]*).*?', sentence)[1])
         if check_indentation_flag:
-            indent_scheme.append(starting_spaces - sum(indent_scheme))
+            possible_indent = starting_spaces - sum(indent_scheme)
+            if possible_indent > 0:
+                indent_scheme.append(possible_indent)
             check_indentation_flag = False
         if re.match(r'.*:\n', sentence):
             check_indentation_flag = True
