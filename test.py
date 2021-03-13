@@ -2,8 +2,21 @@ import re
 from tokenize import tokenize
 from io import BytesIO
 
-python_code = 'import functools\ndef longestWord(word_list):\n\tif word_list is None or isinstance(word_list, list) == False or len(word_list) == 0:\n\t\traise ValueError("Input word_list to \'function longestWord must be list of words of size at least 1")\n\tif len(word_list) == 1:\n\t\treturn word_list[0]\n\telse: \n\t\treturn functools.reduce(lambda x,y: x if len(x) >= len(y) else y, word_list) '
+python_code = '''
+num = 13
+factorial = 1
 
+if num < 0:
+   print("No factorials for negative numbers!")
+
+elif num == 0:
+   print("The factorial of 0 is 1")\
+
+else:
+   for i in range(1,num + 1):
+       factorial = factorial*i
+   print(f"The factorial of {num} is {factorial}")'
+'''
 # exec(python_code)
 
 
@@ -14,6 +27,8 @@ try:
         if i__.exact_type == 3:
             string_tokens = [k__ for k__ in i__[1]]
             tokens = tokens + string_tokens
+        elif i__.exact_type == 6:
+            continue
         else:
             tokens.append(i__[1])
 except Exception:

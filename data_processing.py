@@ -215,6 +215,8 @@ def getTokenizer(python_code):
             if i__.exact_type == 3:
                 string_tokens = [k__ for k__ in i__[1]]
                 tokens = tokens + string_tokens
+            elif i__.exact_type == 6:   # removing dedent tokens
+                continue
             else:
                 tokens.append(i__[1])
     except Exception:
