@@ -1,0 +1,76 @@
+Enter text:Sort a Python dictionary by value
+sorted ( d , key = d . get )
+
+Enter text:write a program to add two numbers
+num1 = 1.5
+num2 = 6.3
+sum = num1 + num2
+print ( f ' S u m :   { s u m } ' )
+
+Enter text:write a python function to add two user provided numbers and return the sum
+def add_two_numbers ( num1 , num2 ) :
+	 sum = num1 + num2
+return sum + num2
+
+Enter text:write a program to find and print the largest among three numbers
+num1 = 10
+num2 = 12
+num3 = 14
+if ( num1 >= num2 ) and ( num1 >= num3 ) :
+	 largest = num1
+elif ( num2 >= num1 ) and ( num2 >= num3 ) :
+	 largest = num2
+else : largest = num3
+print ( f ' l a r g e s t : { l a r g e s t } ' )
+
+
+ Enter text:Write a program to print the multiplication table of a given number
+n = int ( input ( " I n p u t   a   n u m b e r :   " ) )
+for i in range ( 1 , 11 ) :
+	 print ( n , ' x ' = ' , i * i )
+
+Enter text:Write a program to print the sum of squares of first n natural numbers
+n = 10
+sum_n = 0
+for i in range ( 1 , n + 1 ) :
+	 sum_n += i ** 2
+print ( sum_n )
+
+Enter text:Write a pythno function to print the length of a given tuple
+my_tuple = ( 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 )
+print ( len ( my_tuple ) )
+
+Enter text:Write a program to to print the contents of a given file
+file_name = ' t e m p . t x t '
+with open ( file_name , ' r ' ) as file :
+	 print ( f . read ( ) )
+
+Enter text:Write a function to find the area of rectangle
+def rectangle_area ( l , b ) :
+	 return l * b
+
+Enter text:Write a lambda function to add two numbers
+add = lambda a , b : a + b
+
+
+Enter text:write a python program to sort dictionary items
+dict1 = { ' c a r ' : [ 2 , 3 , 4 ] ,
+' b i s ' : [ 5 , 6 , 7 ] ,
+' t r u c k ' : [ 6 , 3 ] }
+print ( f " T h e   o r i g i n a l   d i c t i o n a r y   i s   :   { s t r ( d i c t 1 ) } " )
+res = dict ( )
+for key in dict1 :
+	 res [ key ] = sorted ( dict1 [ key ] )
+print ( f " T h e   r e c t i o n a r y   d i c t i o n a r y   :   { s t r ( res ) } " )
+
+Enter text:write a Python program to merge two dictionaries
+x = { ' a ' : 1 , ' b ' : 2 , ' c ' : 3 }
+y = { ' d ' : 4 , ' d ' : 6 }
+z = { ** x , ** y }
+
+Enter text:Write a function to return the area of a right angle triangle
+def cal_rt_triangle_area ( base : float , height : float ) -> float :
+	 if base and height :
+		 return ( base * height ) / 2
+else :
+		 return None

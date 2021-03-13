@@ -1,5 +1,9 @@
 # Python Code Generation
 
+#### Observations:
+The code in the repository doesn't create the right code for any possible python question. It is trained on a small data and creates a good program related to the questions present in the data. However, it still doesn't understand indentation properly for very long programs. After a ':' model correctly predicts the amount of indentation for the line but fails to capture which statements to keep in which indent specially for a very long program.
+
+
 #### Steps taken for data cleaning
  1. Remove all comments \# and '''...''': This is to reduce the vocab size and make the problem simpler for the model
  2. Replace tabs with "    ": This helps to keep same indentation scheme in the file. Specially for cases with indentation scheme as 4-3-2 spaces.
@@ -50,9 +54,9 @@ Here are the different experiments we did, and their corresponding files.
     We use this file to report our results. We train on total 5937 unique question answer pairs along with the pretrained embeddings we got from 4.
    
 #### Example Outputs:
+Check the file here for example outputs.
 
-
-#### Attention graphs between text and python code
+#### Attention graphs between text and python code 
 
 Reference paper:
 https://arxiv.org/pdf/2002.05442.pdf
