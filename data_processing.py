@@ -225,4 +225,4 @@ def getTokenizer(python_code):
     return tokens
 
 # getDataAnalysis()
-getData("data/english_python_data_pruned.txt")
+# getData("data/english_python_data_pruned.txt")
