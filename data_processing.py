@@ -214,11 +214,14 @@ def getTokenizer(python_code):
         indents = 0
         last_token = a[0]
         for i__ in a[1:-1]:
+            if i__.exact_type == 56:
+                tokens.append("\n")
+                continue
             if i__.exact_type == 6:  # Dedent
                 indents -= 1
             if i__.exact_type == 5:  # Indent
                 indents += 1
-            if last_token.exact_type == 4 or last_token.exact_type == 56:  # Newline
+            if last_token.exact_type == 4:  # Newline
                 tokens.append(indents * '\t')
 
             if i__.exact_type == 3:
