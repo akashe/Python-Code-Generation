@@ -5,12 +5,8 @@ Enter text:write a program to add two numbers
 num1 = 1.5
 num2 = 6.3
 sum = num1 + num2
-print ( f ' S u m :   { s u m } ' )
+print ( f' S u m :   {sum} ' )
 
-Enter text:write a python function to add two user provided numbers and return the sum
-def add_two_numbers ( num1 , num2 ) :
-	 sum = num1 + num2
-return sum + num2
 
 Enter text:write a program to find and print the largest among three numbers
 num1 = 10
@@ -21,13 +17,13 @@ if ( num1 >= num2 ) and ( num1 >= num3 ) :
 elif ( num2 >= num1 ) and ( num2 >= num3 ) :
 	 largest = num2
 else : largest = num3
-print ( f ' l a r g e s t : { l a r g e s t } ' )
+print ( f' l a r g e s t : { l a r g e s t } ' )
 
 
  Enter text:Write a program to print the multiplication table of a given number
-n = int ( input ( " I n p u t   a   n u m b e r :   " ) )
+num = 12
 for i in range ( 1 , 11 ) :
-	 print ( n , ' x ' = ' , i * i )
+	 print ( f" {num}   x   {i}   =   {num*i} " )
 
 Enter text:Write a program to print the sum of squares of first n natural numbers
 n = 10
@@ -40,10 +36,6 @@ Enter text:Write a pythno function to print the length of a given tuple
 my_tuple = ( 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 )
 print ( len ( my_tuple ) )
 
-Enter text:Write a program to to print the contents of a given file
-file_name = ' t e m p . t x t '
-with open ( file_name , ' r ' ) as file :
-	 print ( f . read ( ) )
 
 Enter text:Write a function to find the area of rectangle
 def rectangle_area ( l , b ) :
@@ -52,16 +44,6 @@ def rectangle_area ( l , b ) :
 Enter text:Write a lambda function to add two numbers
 add = lambda a , b : a + b
 
-
-Enter text:write a python program to sort dictionary items
-dict1 = { ' c a r ' : [ 2 , 3 , 4 ] ,
-' b i s ' : [ 5 , 6 , 7 ] ,
-' t r u c k ' : [ 6 , 3 ] }
-print ( f " T h e   o r i g i n a l   d i c t i o n a r y   i s   :   { s t r ( d i c t 1 ) } " )
-res = dict ( )
-for key in dict1 :
-	 res [ key ] = sorted ( dict1 [ key ] )
-print ( f " T h e   r e c t i o n a r y   d i c t i o n a r y   :   { s t r ( res ) } " )
 
 Enter text:write a Python program to merge two dictionaries
 x = { ' a ' : 1 , ' b ' : 2 , ' c ' : 3 }
@@ -72,5 +54,115 @@ Enter text:Write a function to return the area of a right angle triangle
 def cal_rt_triangle_area ( base : float , height : float ) -> float :
 	 if base and height :
 		 return ( base * height ) / 2
-else :
+     else :
 		 return None
+
+
+Enter text:Write Python Program to print if a Number is Odd or Even
+num = 102
+if ( num % 2 ) == 0 :
+	 print ( f" {num}   i s   E v e n " )
+else :
+	 print ( f" {num}   i s   O d d d " )
+
+
+Enter text:Write a Python program to Multiply two list and print the resultant list
+test_list1 = [ 1 , 2 , 3 , 4 , 5 ]
+test_list2 = [ 4 , 5 , 6 , 10 , 3 ]
+res_list = [ ]
+for i in range ( 0 , len ( test_list1 ) ) :
+	 res_list . append ( test_list1 [ i ] * test_list2 [ i ] )
+print ( " R e s u l t a n t   l i s t   i s   :   " + str ( res_list ) )
+
+
+Enter text:Write a Python program to print negative numbers in a list
+list1 = [ 11 , - 21 , 0 , 45 , 66 , - 93 ]
+for num in list1 :
+	 if num < 0 :
+		 print ( num , end = "   " )
+
+
+Enter text:Write a python program to check if a number is positive or negative
+num = float ( input ( " E n t e r   a   n u m b e r :   " ) )
+if num > 0 :
+	 print ( f" P o s i t i v e   n u m b e r " )
+elif num == 0 :
+	 print ( f" Z e r o " )
+else :
+	 print ( f" Z e r o " )
+
+Enter text:write a Python Program to Count and print the Number of Each Vowel in the input string
+vowels = ' a e i o u '
+ip_str = ' H e l l o ,   h a v e   y o u   t r i e d   o u r   t u t o r i a l   s e c t i o n   y e t ? '
+ip_str = ip_str . casefold ( )
+count = {} . fromkeys ( vowels , 0 )
+for char in ip_str :
+	 if char in count :
+		 count [ char ] += 1
+print ( count )
+
+
+Enter text:write a python program to Print Quotient and Remainder of two numbers
+a = 15
+b = 4
+quotient = a // b
+remainder = a % b
+print ( " Q u o t i e n t   i s : " , quotient )
+print ( " R e m a i n d e r   i s : " , remainder )
+
+
+Enter text:write a Python Program to print all the Divisors of an Integer
+n = 60
+print ( " T h e   d i v i s o r s   o f   t h e   n u m b e r   a r e : " )
+for i in range ( 1 , n + 1 ) :
+	 if ( n % i == 0 ) :
+		 print ( i )
+
+Enter text:Write a Python program to print the calendar of any given year
+import calendar
+year = 2020
+print ( calendar . calendar ( year ) )
+
+Enter text:Write Python Program to print if a Number is Odd or Even
+num = 102
+if ( num % 2 ) == 0 :
+	 print ( f" {num}   i s   E v e n " )
+else :
+	 print ( f" {num}   i s   O d d d " )
+
+####################
+# Failed examples
+###################
+#Failed example 1:
+Enter text:Write a python function to Compute LCM of two input number
+def compute_lcm ( x , y ) :
+	 if x > y :
+		 greater = x
+else :
+		 greater = y
+while ( True ) :
+		 if ( ( greater % x == 0 ) and ( greater % y == 0 ) ) :
+			 lcm = greater
+break
+greater += 1
+return lcm
+
+#Failed example 2:
+Enter text:write Python Program to print the Sum of 10 Natural Numbers
+num = 16
+if num < 0 :
+	 print ( " E n t e r   a   p o s i t i v e   n u m b e r " )
+else :
+	 sum = 0
+# use while loop to iterate until zero
+while ( num > 0 ) :
+		 sum += num
+num -= 1
+print ( " T h e   s u m   i s " , sum )
+
+#Failed example 3:
+Enter text:write a Python function to convert binary to Gray codeword
+def binary_to_gray ( n ) :
+	 n = int ( n , 2 )
+n ^= ( n >> 1 )
+return bin ( n ) [ 2 : ]

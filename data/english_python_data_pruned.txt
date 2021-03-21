@@ -28585,7 +28585,7 @@ X = [[1,2],
       [4,5],  
      [7,8]]  
   
-Result = [[0,0,0],  
+result = [[0,0,0],
              [0,0,0]]  
    
 for i in range(len(X)):  
@@ -28872,12 +28872,6 @@ def factendzero(n):
 
 # Write a Python function for Binary Search
 def binary_search(l, num_find):
-    '''
-    This function is used to search any number.
-    Whether the given number is present in the
-    list or not. If the number is present in list
-    the list it will return TRUE and FALSE otherwise.
-    '''
     start = 0
     end = len(l) - 1
     mid = (start + end) // 2
