@@ -130,39 +130,75 @@ if ( num % 2 ) == 0 :
 else :
 	 print ( f" {num}   i s   O d d d " )
 
-####################
-# Failed examples
-###################
-#Failed example 1:
+
+Enter text:write a python Program to Determine all Pythagorean Triplets in the Range
+limit = 50
+c = 0
+m = 2
+while ( c < limit ) :
+	 for n in range ( 1 , m + 1 ) :
+		 a = m * m - n * n
+		 b = 2 * m * n
+		 c = m * m + n * n
+		 if ( c > limit ) :
+			 break
+		 if ( a == 0 or b == 0 or c == 0 ) :
+			 break
+		 print ( a , b , c )
+	 m = m + 1
+
+
 Enter text:Write a python function to Compute LCM of two input number
 def compute_lcm ( x , y ) :
 	 if x > y :
 		 greater = x
-else :
+	 else :
 		 greater = y
-while ( True ) :
+	 while ( True ) :
 		 if ( ( greater % x == 0 ) and ( greater % y == 0 ) ) :
 			 lcm = greater
-break
-greater += 1
-return lcm
+			 break
+		 greater += 1
+	 return lcm
 
-#Failed example 2:
-Enter text:write Python Program to print the Sum of 10 Natural Numbers
-num = 16
-if num < 0 :
-	 print ( " E n t e r   a   p o s i t i v e   n u m b e r " )
-else :
-	 sum = 0
-# use while loop to iterate until zero
-while ( num > 0 ) :
-		 sum += num
-num -= 1
-print ( " T h e   s u m   i s " , sum )
 
-#Failed example 3:
 Enter text:write a Python function to convert binary to Gray codeword
 def binary_to_gray ( n ) :
 	 n = int ( n , 2 )
-n ^= ( n >> 1 )
-return bin ( n ) [ 2 : ]
+	 n ^= ( n >> 1 )
+	 return bin ( n ) [ 2 : ]
+
+
+Enter text:write a Python function to check if count of divisors is even or odd
+def NumOfDivisor ( n ) :
+	 if n < 1 :
+		 return
+	 root_n = n ** 0.5
+	 if root_n ** 2 == n :
+		 print ( " O d " )
+	 else :
+		 print ( " E v e n " )
+
+
+Enter text:Write a Python function to print the root of the quadratic equation
+def quadratic_root ( A , B , C ) :
+	 import math
+	 d = ( ( B ** 2 ) - 4 * A * C )
+	 if d >= 0 :
+		 s = ( - B + ( d ) ** 0.5 ) / ( 2 * A )
+		 p = ( - B - ( d ) ** 0.5 ) / ( 2 * A )
+		 print ( math . floor ( s ) , math . floor ( p ) )
+	 else :
+		 print ( ' T h e   r o o t s   a r e   i m a g i n a r y ' )
+
+
+Enter text:Write a function to determine whether a given number is even or odd recursively
+def check ( n ) :
+	 if ( n < 2 ) :
+		 return ( n % 2 == 0 )
+	 return ( check ( n - 2 ) )
+n = int ( input ( " E n t e r   n u m b e r : " ) )
+if ( check ( n ) == True ) :
+	 print ( " N u m b e r   i s   e v e n ! " )
+else :
+	 print ( " N u m b e r   i s   o d d ! " )

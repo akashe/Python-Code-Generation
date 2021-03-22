@@ -12,7 +12,7 @@ The code in the repository doesn't create the right code for any possible python
 
 #### Steps for data processing:
 1. Removing duplicate question answer pairs: Original data had many duplicate questions and python codes submitted by as same assignment by different team members. After removing duplicate pairs, the total unique question answer pair we about 3100 as compared to 4600+ original pairs.
-2. Tokenization: As said earlier, we used python's own tokenizer. There was a problem with it though. It took strings like the ones present in print('Akash Kumar') as a seperate string token 'Akash Kumar'. This unnecessarily increase vocab size. So tokenized these strings as characters to increase models verstality. Also, we replace all "\n\t" substrings to "\n \t" because tokenizer wasn't identifying the indent for next line in "\n\t"
+2. Tokenization: As said earlier, we used python's own tokenizer. There was a problem with it though. It took strings like the ones present in print('Akash Kumar') as a seperate string token 'Akash Kumar'. This unnecessarily increase vocab size. So tokenized these strings as characters to increase models verstality.
 3. Formatting with proper indentation: Data had multiple indentation schemes. We identify the indent required and finally replace it with corresponding '\t' to keep sequence length smaller.
 
 #### Loss Function:
@@ -31,7 +31,7 @@ Architecture is same as mentioned in the paper ["Attention is all you need."](ht
 
 #### Evaluation metrics:
 We used Rouge-L metric which matches the longest subsequence. In code, there is a fixed structure with snippets following each other to build on previous snippets. In machine translation, the same words can come in the beginning and at the end to form the same meaning so n-grams based evaluation metric makes sense.
-Since in the code, n-grams presenting anywhere doesn't make sense, we chose [ROUGE-L metric](https://www.aclweb.org/anthology/P04-1077.pdf). It gives score according to matching of the longest common subsequence in target and output codes. We get a maximum of 15.8 ROUGE-L score on the validation set.
+Since in the code, n-grams presenting anywhere doesn't make sense, we chose [ROUGE-L metric](https://www.aclweb.org/anthology/P04-1077.pdf). It gives score according to matching of the longest common subsequence in target and output codes. We get a maximum of 15.8 ROUGE-L score on the validation set. Refer [this file](https://github.com/akashe/Python-Code-Generation/blob/main/Conala_with_original_data_with_python_embeddings.ipynb) for code.
 
 #### Experiments:
 Here are the different experiments we did, and their corresponding files.
@@ -55,7 +55,7 @@ Here are the different experiments we did, and their corresponding files.
     We use this file to report our results. We train on total 5937 unique question answer pairs along with the pretrained embeddings we got from 4.
    
 #### Example Outputs:
-Check the [file here for example outputs](https://github.com/akashe/Python-Code-Generation/blob/main/data/example_output.txt) for better formatting.
+Check the [file here for example outputs](https://github.com/akashe/Python-Code-Generation/blob/main/data/example_output.txt) for better formatting. Refer [this file](https://github.com/akashe/Python-Code-Generation/blob/main/Conala_with_original_data_with_python_embeddings.ipynb) for code.
 
 #### Attention graphs between text and python code 
 
