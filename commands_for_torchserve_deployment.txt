@@ -1,0 +1,22 @@
+
+Requirements:
+1) Java JDK 11
+2) torch, torchserve, torch-model_archiver
+3) torchtext to load stoi and itos vocabs
+4) spacy
+
+
+
+
+torch-model-archiver --model-name py_code_generator --version 1.0  --serialized-file data/model_saved_by_jit.pt --handler custom_handler_for_deployment.py --extra-files data/SRC_stio_local,data/TRG_itos_local --model-file model.py
+
+mv -f py_code_generator.mar data/
+
+torchserve --start --ncs --model-store data/ --models py_code_generator=py_code_generator.mar
+
+torchserve --stop
+
+curl http://localhost:8080/ping
+
+
+curl http://localhost:8080/predictions/py_code_generator "write a Python function to convert binary to Gray codeword"

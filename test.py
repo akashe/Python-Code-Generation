@@ -3,18 +3,7 @@ from tokenize import tokenize
 from io import BytesIO
 
 python_code = '''
-def perfect_number_checker(num):
-    i = 2
-    sum = 1
-    while(i <= num//2 ) :
-        if (num % i == 0) :
-            sum += i
-        i += 1
-    if sum == num :
-        return f'{num} is a perfect number'
-
-    else :
-        return f'{num} is not a perfect number'
+def compute_lcm(x, y):\n\tif x > y:\n\t\tgreater = x\n\telse:\n\t\tgreater = y\n\twhile(True):\n\t\tif((greater % x == 0) and (greater % y == 0)):\n\t\t\tlcm = greater\n\t\t\tbreak\n\t\tgreater += 1\n\treturn lcm
 '''
 # exec(python_code)
 # python_code= python_code.replace("\t","\t ")
@@ -44,7 +33,7 @@ try:
                 string_tokens = [k__ for k__ in i__[1]]
             tokens = tokens + string_tokens
         elif i__.exact_type == 6 or i__.exact_type == 5:
-            pass
+            passz
         else:
             tokens.append(i__[1])
 
